@@ -5,9 +5,12 @@
 		<fileset dir="libs">
 			<include name="*.jar"/>
 		</fileset>
+		<fileset dir="${catalina.home}/lib">
+		   <include name="*.jar"/>
+		</fileset>
 	</path>
 	
-	<target name="init">
+	<target name="init" depends="clean">
 		<mkdir dir="build/classes"/>
 		<mkdir dir="dist"/>
 	</target>
