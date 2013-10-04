@@ -2,6 +2,7 @@ package com.bsharp.sample1.dao.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class JDBCManager {
  // JDBC driver name and database URL
@@ -12,18 +13,11 @@ public class JDBCManager {
  static final String USER="sa";
  static final String PASS="1"; 
  
- public static Connection getConnection()
+ public static Connection getConnection() throws Exception
  {
 	  Connection conn = null;
-	  try {
-		  
-		  Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		
-		  conn = DriverManager.getConnection(DB_URL,USER,PASS);
-		  
-	  }catch (Exception e) {
-			System.out.println("Error Occured");
-	}
-	   return conn;
+      Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+      return conn;
  }
 }
