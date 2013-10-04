@@ -23,7 +23,7 @@ import com.bsharp.sample1.service.impl.PatientServiceImpl;
 
 public class PatientManager {
 
-	private final Logger log = Logger.getLogger(PatientServiceImpl.class);
+	private final Logger log = Logger.getLogger(PatientManager.class);
 	
 	public void savePatient(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
 		
@@ -58,7 +58,7 @@ public class PatientManager {
 				patientService.savePatient(patient,action);
 				req.setAttribute("result", "Saved Successfully...");
 				log.info("Patient saved successfully...");
-			} catch (SQLException e) {				
+			} catch (Exception e) {				
 				req.setAttribute("result", "Error :"+e.toString());
 				log.error(e.toString());
 			}
@@ -106,11 +106,15 @@ public class PatientManager {
 		return resultsMap;	
 	}
 	
-	public void ListPatient(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{				
+	public void ListPatient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{				
 		log.debug("PatientManager ListPatient method called...");
 		PatientService patientService=new PatientServiceImpl();
-	    List<Patient> patientList=patientService.listPatient();
-	    
+	    List<Patient> patientList = null;
+		try {
+			patientList = patientService.listPatient();
+		} catch (Exception e) {
+			log.error(e.toString());
+		}
 	    request.setAttribute("list",patientList );	    
 	    // Dispatch request object to ListPatient.jsp
 	    RequestDispatcher view=request.getRequestDispatcher("ListPatient.jsp");
@@ -122,13 +126,18 @@ public class PatientManager {
 		int healthRecord=Integer.parseInt(request.getParameter("healthRecord"));
 		PatientService patientService=new PatientServiceImpl();
 		  
-		Patient patient=patientService.getPatient(healthRecord);
+		Patient patient = null;
+		try {
+			patient = patientService.getPatient(healthRecord);
+		} catch (Exception e) {
+			log.error(e.toString());
+		}
 		request.setAttribute("patient", patient);
 		RequestDispatcher view=request.getRequestDispatcher("AddPatient.jsp");
 		view.forward(request, response);		
 	}
 	
-	public void deletePatient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	public void deletePatient(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		log.debug("PatientManager deletePatient method called...");
 		int healthRecord=Integer.parseInt(request.getParameter("healthrec"));
 
@@ -138,7 +147,7 @@ public class PatientManager {
 				request.setAttribute("result", "Deleted Successfully...");
 				log.info("Patient deleted successfully...");
 			}
-		} catch (SQLException e) {			
+		} catch (Exception e) {			
 			request.setAttribute("result", "Error :"+e.toString());
 			log.error(e.toString());
 		}
