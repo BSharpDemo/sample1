@@ -8,8 +8,8 @@ import com.bsharp.sample1.model.Patient;
 
 public interface PatientService {
 
-	public void savePatient(Patient patient,String action) throws SQLException;
-	public List<Patient> listPatient();
-	public Patient getPatient(int healthRecord);
-	public int deletePatient(int healthRecord)throws SQLException;
+	public void savePatient(Patient patient,String action) throws Exception;
+	public List<Patient> listPatient() throws Exception;
+	public Patient getPatient(int healthRecord)throws Exception;
+	public int deletePatient(int healthRecord)throws Exception;
 }
