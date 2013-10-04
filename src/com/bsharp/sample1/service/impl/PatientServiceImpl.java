@@ -18,7 +18,7 @@ public class PatientServiceImpl implements PatientService {
 	
 	private final Logger log = Logger.getLogger(PatientServiceImpl.class);
 
-	public void savePatient(Patient patient,String action)throws SQLException{		
+	public void savePatient(Patient patient,String action)throws Exception{		
 		log.debug("savePatient Service method called...");
 		PatientDAO patientDao=new PatientDAOJDBCImpl();
 		if(action.equals("Save")){			
@@ -28,33 +28,25 @@ public class PatientServiceImpl implements PatientService {
 		}						
 	}
 		
-    public List<Patient> listPatient() {
+    public List<Patient> listPatient() throws  Exception{
 		
 		//BasicConfigurator.configure();
 		log.debug("listPatient Service method called...");
-		
-		PatientDAO patientDAO=new PatientDAOJDBCImpl();
-		
-		List<Patient> patientList = null;
-		try {
-			patientList = patientDAO.getlistPatient();
-		} catch (ClassNotFoundException e) {			
-			e.printStackTrace();
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}		
-		return patientList;
+        PatientDAO patientDAO=new PatientDAOJDBCImpl();
+        List<Patient> patientList = null;
+        patientList = patientDAO.getlistPatient();
+        return patientList;
 	}
     
 	@Override
-	public Patient getPatient(int healthRecord) {
+	public Patient getPatient(int healthRecord) throws Exception{
 		PatientDAO patientDAO=new PatientDAOJDBCImpl();
 		Patient patient=patientDAO.getPatient(healthRecord);
 		return patient;		
 	}
 	
 	@Override
-	public int deletePatient(int healthRecord) throws SQLException{
+	public int deletePatient(int healthRecord) throws Exception{
 		PatientDAO patientDAO=new PatientDAOJDBCImpl();
 		int count=patientDAO.deletePatient(healthRecord);
 		return count;
