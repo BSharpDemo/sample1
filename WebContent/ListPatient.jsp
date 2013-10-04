@@ -75,10 +75,11 @@
 						<h4 style="color:red">No item to display</h4>
 				<% }%>
 							<br/>
-<input type="hidden" value="ListPatient" id="patientHidden" name="patientHidden">
-    <div style="background-color:#194775;text-align:center;height:6px"></div>
-     	<div style="align:center"><input type="submit" value="<<Create patients" name="action"></div>
-        	<div style="background-color:#194775;text-align:center;height:6px"></div>
+		<input type="hidden" name="action" value="Create">
+		
+    	<div style="background-color:#194775;text-align:center;height:6px"></div>
+     	<div style="align:center"><input type="submit" value="<<Create patients" name="create"></div>
+        <div style="background-color:#194775;text-align:center;height:6px"></div>
            
 	</form>
 </div>
