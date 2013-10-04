@@ -17,7 +17,7 @@ public class PatientDAOJDBCImpl implements PatientDAO {
 	private final Logger log = Logger.getLogger(PatientDAOJDBCImpl.class);
 	
 	@Override
-	public void updatePatient(Patient patient) throws SQLException {
+	public void updatePatient(Patient patient) throws Exception {
 		// Get JDBC Connection
 		Connection conn= JDBCManager.getConnection();
 				
@@ -50,7 +50,7 @@ public class PatientDAOJDBCImpl implements PatientDAO {
 	}
 	
 	@Override
-	public void addPatient(Patient patient)throws SQLException {
+	public void addPatient(Patient patient)throws Exception {
 		
 		// Get JDBC Connection
 		Connection conn= JDBCManager.getConnection();
@@ -84,16 +84,16 @@ public class PatientDAOJDBCImpl implements PatientDAO {
 	}
 
 	@Override
-	public List<Patient> getlistPatient() {
+	public List<Patient> getlistPatient() throws Exception {
 		
 		BasicConfigurator.configure();
 		log.debug("getlistPatient method called...");
 		
 	    List<Patient> list=new ArrayList<Patient>();
-	   
-		Statement stmt = null;
+	    Statement stmt = null;
+		Connection conn=JDBCManager.getConnection();
 		try {
-			stmt = JDBCManager.getConnection().createStatement();
+			stmt = conn.createStatement();
 			String sql = "SELECT * FROM Patient";
 			
 			ResultSet rs = stmt.executeQuery(sql);
@@ -108,27 +108,23 @@ public class PatientDAOJDBCImpl implements PatientDAO {
             }
 			
 		 } catch (SQLException e) {
-             e.printStackTrace();
-		 }
-		 finally{
-             try {
-		         JDBCManager.getConnection().close();
-			 } catch (SQLException e) {
-		         e.printStackTrace();
-			}
-		}
+			 throw e;
+		 }finally{
+             conn.close();
+         }
 		return list;
        }
 
 	@Override
-	public Patient getPatient(int healthRecord) {
+	public Patient getPatient(int healthRecord) throws Exception {
 		log.debug("getPatient method called...");
 		PreparedStatement stmt = null;
 		Patient pt=null;
+		Connection conn=JDBCManager.getConnection();
 		try {
 			
 			String sql = "SELECT * FROM Patient where HealthRecordNumber=?";
-			stmt = JDBCManager.getConnection().prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,healthRecord);
 			ResultSet rs = stmt.executeQuery();
 						
@@ -141,30 +137,24 @@ public class PatientDAOJDBCImpl implements PatientDAO {
 				 pt.setAge(rs.getInt("Age"));				 
             }			
 		 } catch (SQLException e) {
-             log.error(e.toString());
+            throw e;
 		 }finally{
-             try {
-		          JDBCManager.getConnection().close();
-			 } catch (SQLException e) {
-				 log.error(e.toString());
-			 }
-		 }
+            conn.close();
+	     }
 		return pt;
 	}
 
 	@Override
-	public int deletePatient(int healthRecord)throws SQLException {	
+	public int deletePatient(int healthRecord)throws Exception {	
 		log.debug("deletePatient method called...");
 		PreparedStatement stmt = null;
 		int count=0;
-		try{
-			String sql="DELETE FROM Patient WHERE HealthRecordNumber=?";
-			stmt = JDBCManager.getConnection().prepareStatement(sql);
-			stmt.setInt(1,healthRecord);
-			count = stmt.executeUpdate();		
-        }catch(SQLException e){
-        	throw e;			
-		}
+
+		String sql="DELETE FROM Patient WHERE HealthRecordNumber=?";
+		stmt = JDBCManager.getConnection().prepareStatement(sql);
+		stmt.setInt(1,healthRecord);
+		count = stmt.executeUpdate();		
+
 		return count;
 	}			
 }
