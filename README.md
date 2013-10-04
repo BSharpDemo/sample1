@@ -1,4 +1,4 @@
-sample1
+Sample1
 =======
 Online system to Create,Read,Update,Delete(CRUD) patient records.
 
@@ -19,6 +19,7 @@ Initializing Database
 MSSQL Server:
  Assume the MSSQL Server is running on local machine under port 1433
  Database configuration is stored on src\com\bsharp\sample1\dao\impl\JDBCManager, You can change as you wish.
+ Sql script is stored on resources/script.sql,Execute the script to create database and tables.
  
 Tomcat Server Deployment
 ========================
