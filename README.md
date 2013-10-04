@@ -24,7 +24,7 @@ Tomcat Server Deployment
 ========================
 Assume tomcat is up and running on your local machine.
 From the project root folder , run the follwoing Ant command
-  >>ant
+>ant
 Note: You can change Build.xml in order to change tomcat configuration
 After deploying succefully , you can access the application using follwoing URL
 http://[yourTomcatHost]:[port]/DemoMVC
