@@ -7,10 +7,10 @@ import com.bsharp.sample1.model.Patient;
 
 public interface PatientDAO {
 
-	public void addPatient(Patient patient)throws SQLException;
-	public void updatePatient(Patient patient)throws SQLException;
-	public List<Patient> getlistPatient() throws ClassNotFoundException, SQLException;
-	public Patient getPatient(int healthRecord);
-	public int deletePatient(int healthRecord)throws SQLException;
+	public void addPatient(Patient patient)throws Exception;
+	public void updatePatient(Patient patient)throws Exception;
+	public List<Patient> getlistPatient() throws  Exception;
+	public Patient getPatient(int healthRecord) throws Exception;;
+	public int deletePatient(int healthRecord)throws Exception;
 
 }
