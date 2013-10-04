@@ -138,7 +138,10 @@
 			<div style="background-color:#194775;text-align:center;height:6px">
 
 			</div>
-			<div style="align:center"><input type="submit" name="action" value="View patients>>"></div>
+			<div style="align:center">
+				<input type="submit" name="btnview" value="View patients>>">
+				<input type="hidden" name="action" value="View">
+			</div>
 			<div style="background-color:#194775;text-align:center;height:6px">
 
 			</div>
