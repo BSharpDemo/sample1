@@ -11,7 +11,7 @@ public class JDBCManager {
     
  //DB credentials
  static final String USER="sa";
- static final String PASS="1"; 
+ static final String PASS="janaka"; 
  
  public static Connection getConnection() throws Exception
  {
